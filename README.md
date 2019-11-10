@@ -19,7 +19,7 @@ var recipients = new Dictionary<string, long>
     { "1LaiteuxHEH4GsMC9aVmnwgUEZyrG6BiTH", 1337 }
 };
 
-var payment = blockchainWallet.PaymentAsync(recipients, feePerByte: 50).GetAwaiter().GetResult();
+var payment = await blockchainWallet.PaymentAsync(recipients, feePerByte: 50);
 
 if (payment.Success)
 {
