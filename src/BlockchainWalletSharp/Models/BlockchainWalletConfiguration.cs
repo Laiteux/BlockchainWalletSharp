@@ -1,6 +1,6 @@
 ﻿namespace BlockchainWalletSharp.Models
 {
-    public class Wallet
+    public class BlockchainWalletConfiguration
     {
         /// <summary>
         ///     Blockchain Wallet Service host address (required)

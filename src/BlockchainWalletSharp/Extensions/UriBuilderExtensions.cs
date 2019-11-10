@@ -21,7 +21,7 @@ namespace BlockchainWalletSharp.Extensions
         {
             foreach (var parameter in parameters)
             {
-                uriBuilder = uriBuilder.WithParameter(parameter.Key, parameter.Value);
+                uriBuilder.WithParameter(parameter.Key, parameter.Value);
             }
 
             return uriBuilder;

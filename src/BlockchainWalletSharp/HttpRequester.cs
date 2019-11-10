@@ -6,9 +6,16 @@ namespace BlockchainWalletSharp
 {
     internal class HttpRequester
     {
-        public async Task<T> SendAsync<T>(HttpClient httpClient, HttpRequestMessage httpRequestMessage)
+        private readonly HttpClient _httpClient;
+
+        public HttpRequester(HttpClient httpClient)
         {
-            using var responseMessage = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
+            _httpClient = httpClient;
+        }
+
+        public async Task<T> SendAsync<T>(HttpRequestMessage httpRequestMessage)
+        {
+            using var responseMessage = await _httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
 
             return await DeserializeResponseMessageAsync<T>(responseMessage).ConfigureAwait(false);
         }
