@@ -1,11 +1,10 @@
-﻿using BlockchainWalletSharp.Interfaces;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace BlockchainWalletSharp
 {
-    public class HttpRequester : IRequester
+    internal class HttpRequester
     {
         public async Task<T> SendAsync<T>(HttpClient httpClient, HttpRequestMessage httpRequestMessage)
         {
