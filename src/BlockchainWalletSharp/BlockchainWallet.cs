@@ -131,16 +131,21 @@ namespace BlockchainWalletSharp
         /// </summary>
         /// <remarks>
         ///     It is recommended that transaction fees are specified using the fee_per_byte parameter, which will compute your final fee based on the size of the transaction. You can also set a static fee using the fee parameter, but doing so may result in a low fee-per-byte, leading to longer confirmation times.
+        ///     It is recommended to specify a custom fee, transactions using the default 10000 satoshi fee may not confirm
         /// </remarks>
         /// <param name="recipients">Bitcoin addresses as keys and the satoshi amounts as values</param>
+        /// <param name="from">Bitcoin address or account index to send from</param>
         /// <param name="feePerByte">Transaction fee-per-byte in satoshi</param>
         /// <param name="fee">Transaction fee in satoshi</param>
         /// <returns>An instance of the <see cref="Payment"/> class</returns>
-        public async Task<Payment> PaymentAsync(IEnumerable<KeyValuePair<string, long>> recipients, long? feePerByte = null, long? fee = null)
+        public async Task<Payment> PaymentAsync(IEnumerable<KeyValuePair<string, long>> recipients, string from = null, long? feePerByte = null, long? fee = null)
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, "sendmany");
 
             uri = uri.WithParameter("recipients", JsonConvert.SerializeObject(recipients));
+
+            if(!string.IsNullOrWhiteSpace(from))
+                uri = uri.WithParameter("from", from);
 
             if (feePerByte.HasValue)
                 uri = uri.WithParameter("fee_per_byte", feePerByte.Value.ToString());

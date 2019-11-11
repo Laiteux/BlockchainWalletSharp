@@ -1,7 +1,6 @@
 ﻿using BlockchainWalletSharp.Extensions;
 using BlockchainWalletSharp.Models;
 using System;
-using System.Collections.Generic;
 
 namespace BlockchainWalletSharp.Helpers
 {
@@ -11,12 +10,13 @@ namespace BlockchainWalletSharp.Helpers
         {
             var uriBuilder = new UriBuilder($"{wallet.Host}/merchant/{wallet.Identifier}/{endpoint}");
 
-            uriBuilder = uriBuilder.WithParameters(new Dictionary<string, string>
-            {
-                { "password", wallet.Password },
-                { "second_password", wallet.SecondPassword },
-                { "api_code", wallet.ApiCode }
-            });
+            uriBuilder.WithParameter("password", wallet.Password);
+
+            if (!string.IsNullOrWhiteSpace(wallet.SecondPassword))
+                uriBuilder.WithParameter("second_password", wallet.SecondPassword);
+
+            if(!string.IsNullOrWhiteSpace(wallet.ApiCode))
+                uriBuilder.WithParameter("api_code", wallet.ApiCode);
 
             return uriBuilder;
         }

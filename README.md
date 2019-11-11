@@ -46,3 +46,4 @@ This code is licensed under the MIT License.
 
 ## To-Do
 - [ ] Handle Blockchain API errors & exceptions
+- [ ] Switch to POST requests

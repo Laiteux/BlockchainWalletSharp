@@ -18,7 +18,7 @@ namespace BlockchainWalletSharp.Models
         public List<string> From { get; set; }
 
         /// <summary>
-        ///     A list of the sent amounts in satoshis
+        ///     A list of the sent amounts in satoshi
         /// </summary>
         [JsonProperty("amounts")]
         public List<long> Amounts { get; set; }
