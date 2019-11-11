@@ -6,7 +6,7 @@ Example code for initializing a ``BlockchainWallet`` instance
 ```cs
 var blockchainWallet = new BlockchainWallet(new BlockchainWalletConfiguration
 {
-    Host = "http://127.0.0.1:3000",
+    Host = "http://localhost:3000",
     Identifier = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
     Password = "xXxXxXxXxXxXxXxX"
 });
