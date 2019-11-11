@@ -6,17 +6,17 @@ namespace BlockchainWalletSharp.Helpers
 {
     internal static class UriHelper
     {
-        public static UriBuilder BuildMerchantApi(BlockchainWalletConfiguration wallet, string endpoint)
+        public static UriBuilder BuildMerchantApi(BlockchainWalletConfiguration blockchainWalletConfiguration, string endpoint)
         {
-            var uriBuilder = new UriBuilder($"{wallet.Host}/merchant/{wallet.Identifier}/{endpoint}");
+            var uriBuilder = new UriBuilder($"{blockchainWalletConfiguration.Host}/merchant/{blockchainWalletConfiguration.Identifier}/{endpoint}");
 
-            uriBuilder.WithParameter("password", wallet.Password);
+            uriBuilder.WithParameter("password", blockchainWalletConfiguration.Password);
 
-            if (!string.IsNullOrWhiteSpace(wallet.SecondPassword))
-                uriBuilder.WithParameter("second_password", wallet.SecondPassword);
+            if (!string.IsNullOrWhiteSpace(blockchainWalletConfiguration.SecondPassword))
+                uriBuilder.WithParameter("second_password", blockchainWalletConfiguration.SecondPassword);
 
-            if(!string.IsNullOrWhiteSpace(wallet.ApiCode))
-                uriBuilder.WithParameter("api_code", wallet.ApiCode);
+            if(!string.IsNullOrWhiteSpace(blockchainWalletConfiguration.ApiCode))
+                uriBuilder.WithParameter("api_code", blockchainWalletConfiguration.ApiCode);
 
             return uriBuilder;
         }
