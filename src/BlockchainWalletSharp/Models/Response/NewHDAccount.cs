@@ -6,7 +6,7 @@ namespace BlockchainWalletSharp.Models.Response
     public class NewHDAccount
     {
         [JsonProperty("address_labels")]
-        public List<object> AddressLabels { get; set; }
+        public List<string> AddressLabels { get; set; }
 
         [JsonProperty("archived")]
         public bool Archived { get; set; }
