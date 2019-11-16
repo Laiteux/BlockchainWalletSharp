@@ -1,5 +1,5 @@
 # BlockchainWalletSharp
-An unofficial C# (.NET Core) library for interacting with the Blockchain.info Wallet API V2.
+An unofficial C# library for interacting with the Blockchain.info Wallet API V2.
 
 ## Documentation
 Example code for initializing a ``BlockchainWallet`` instance
