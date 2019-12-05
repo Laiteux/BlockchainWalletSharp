@@ -4,7 +4,7 @@ An unofficial C# library for interacting with the Blockchain.info Wallet API V2.
 ## Documentation
 Example code for initializing a ``BlockchainWallet`` instance
 ```cs
-var blockchainWallet = new BlockchainWallet(new BlockchainWalletConfiguration
+var blockchainWallet = new BlockchainWallet(new HttpClient(), new BlockchainWalletConfiguration
 {
     Host = "http://localhost:3000",
     Identifier = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",

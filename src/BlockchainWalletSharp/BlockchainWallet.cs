@@ -11,16 +11,18 @@ namespace BlockchainWalletSharp
 {
     public class BlockchainWallet
     {
-        private readonly HttpClient _httpClient = new HttpClient();
+        private readonly HttpClient _httpClient;
 
         private readonly BlockchainWalletConfiguration _blockchainWalletConfiguration;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="BlockchainWallet"/> instance
         /// </summary>
+        /// <param name="httpClient">A <see cref="HttpClient"/> instance</param>
         /// <param name="blockchainWalletConfiguration">A <see cref="BlockchainWalletConfiguration"/> instance</param>
-        public BlockchainWallet(BlockchainWalletConfiguration blockchainWalletConfiguration)
+        public BlockchainWallet(HttpClient httpClient, BlockchainWalletConfiguration blockchainWalletConfiguration)
         {
+            _httpClient = httpClient;
             _blockchainWalletConfiguration = blockchainWalletConfiguration;
         }
 
