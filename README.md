@@ -37,7 +37,7 @@ You're more than welcome if you want to fork this repo and submit a pull request
 ## Donation
 If you would like to support this project, please consider donating. Thank you!
 
-- My Bitcoin address, if you allow me to lose your money at gambling: ``1LaiteuxHEH4GsMC9aVmnwgUEZyrG6BiTH``
+- My Bitcoin address, if you allow me to stupidly spend your money: ``1LaiteuxHEH4GsMC9aVmnwgUEZyrG6BiTH``
 
 - My girlfriend one, if you believe I should stay rich: ``1HefDd2P4LPtPQ46UCAhff9NdVgXVFB2x8``
 
