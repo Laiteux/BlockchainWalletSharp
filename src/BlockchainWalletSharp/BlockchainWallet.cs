@@ -40,7 +40,7 @@ namespace BlockchainWalletSharp
 
             using var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);
 
-            var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
             var newAddress = await responseMessage.DeserializeAsync<NewAddress>().ConfigureAwait(false);
 
@@ -57,7 +57,7 @@ namespace BlockchainWalletSharp
 
             using var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);
 
-            var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
             var addressList = await responseMessage.DeserializeAsync<AddressList>().ConfigureAwait(false);
 
@@ -74,7 +74,7 @@ namespace BlockchainWalletSharp
 
             using var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);
 
-            var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
             var dynamic = await responseMessage.DeserializeAsync<dynamic>().ConfigureAwait(false);
 
@@ -94,7 +94,7 @@ namespace BlockchainWalletSharp
 
             using var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);
 
-            var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
             var addressBalance = await responseMessage.DeserializeAsync<AddressBalance>().ConfigureAwait(false);
 
@@ -114,7 +114,7 @@ namespace BlockchainWalletSharp
 
             using var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);
 
-            var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
             var dynamic = await responseMessage.DeserializeAsync<dynamic>().ConfigureAwait(false);
 
@@ -134,7 +134,7 @@ namespace BlockchainWalletSharp
 
             using var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);
 
-            var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
             var dynamic = await responseMessage.DeserializeAsync<dynamic>().ConfigureAwait(false);
 
@@ -170,7 +170,7 @@ namespace BlockchainWalletSharp
 
             using var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);
 
-            var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
             var payment = await responseMessage.DeserializeAsync<Payment>().ConfigureAwait(false);
 
