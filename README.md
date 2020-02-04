@@ -2,7 +2,7 @@
 An unofficial C# library to interact with the Blockchain.info Wallet API V2.
 
 ## Documentation
-Example code for initializing a ``BlockchainWallet`` instance
+Example code for initializing a `BlockchainWallet` instance
 ```cs
 var blockchainWallet = new BlockchainWallet(new HttpClient(), new BlockchainWalletConfiguration
 {
@@ -32,14 +32,16 @@ else
 ```
 
 ## Contribution
-You're more than welcome if you want to fork this repo and submit a pull request!
+Your help is welcome, feel free to fork this repo and submit pull requests.
+
+However, make sure to follow the current code base/style.
 
 ## Donation
 If you would like to support this project, please consider donating. Thank you!
 
-- My Bitcoin address, if you allow me to stupidly spend your money: ``1LaiteuxHEH4GsMC9aVmnwgUEZyrG6BiTH``
+- Bitcoin: `1LaiteuxHEH4GsMC9aVmnwgUEZyrG6BiTH`
 
-- My girlfriend one, if you believe I should stay rich: ``1HefDd2P4LPtPQ46UCAhff9NdVgXVFB2x8``
+- Ethereum: `0xC500a6777dB9948c257e7841a987027D5E5d0E5B`
 
 ## Contact
 Telegram: [@Laiteux](https://t.me/Laiteux)
