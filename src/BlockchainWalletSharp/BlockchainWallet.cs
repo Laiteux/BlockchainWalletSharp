@@ -3,6 +3,7 @@ using BlockchainWalletSharp.Helpers;
 using BlockchainWalletSharp.Models;
 using BlockchainWalletSharp.Models.Response;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -12,7 +13,6 @@ namespace BlockchainWalletSharp
     public class BlockchainWallet
     {
         private readonly HttpClient _httpClient;
-
         private readonly BlockchainWalletConfiguration _blockchainWalletConfiguration;
 
         /// <summary>
@@ -76,9 +76,9 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var dynamic = await responseMessage.DeserializeAsync<dynamic>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeAsync<JObject>().ConfigureAwait(false);
 
-            return dynamic["balance"];
+            return content.Value<long>("balance");
         }
 
         /// <summary>
@@ -116,9 +116,9 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var dynamic = await responseMessage.DeserializeAsync<dynamic>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeAsync<JObject>().ConfigureAwait(false);
 
-            return dynamic["archived"];
+            return content.Value<string>("archived");
         }
 
         /// <summary>
@@ -136,9 +136,9 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var dynamic = await responseMessage.DeserializeAsync<dynamic>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeAsync<JObject>().ConfigureAwait(false);
 
-            return dynamic["active"];
+            return content.Value<string>("active");
         }
 
         /// <summary>
@@ -272,9 +272,9 @@ namespace BlockchainWalletSharp
 
             var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var dynamic = await responseMessage.DeserializeAsync<dynamic>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeAsync<JObject>().ConfigureAwait(false);
 
-            return dynamic["address"];
+            return content.Value<string>("address");
         }
 
         /// <summary>
@@ -290,9 +290,9 @@ namespace BlockchainWalletSharp
 
             var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var dynamic = await responseMessage.DeserializeAsync<dynamic>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeAsync<JObject>().ConfigureAwait(false);
 
-            return dynamic["balance"];
+            return content.Value<long>("balance");
         }
 
         /// <summary>
