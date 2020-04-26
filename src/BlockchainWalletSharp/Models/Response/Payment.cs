@@ -1,26 +1,26 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace BlockchainWalletSharp.Models.Response
 {
     public class Payment
     {
-        [JsonProperty("to")]
+        [JsonPropertyName("to")]
         public List<string> To { get; set; }
 
-        [JsonProperty("from")]
+        [JsonPropertyName("from")]
         public List<string> From { get; set; }
 
-        [JsonProperty("amounts")]
+        [JsonPropertyName("amounts")]
         public List<long> Amounts { get; set; }
 
-        [JsonProperty("fee")]
+        [JsonPropertyName("fee")]
         public long Fee { get; set; }
 
-        [JsonProperty("txid")]
+        [JsonPropertyName("txid")]
         public string TXID { get; set; }
 
-        [JsonProperty("success")]
+        [JsonPropertyName("success")]
         public bool Success { get; set; }
     }
 }

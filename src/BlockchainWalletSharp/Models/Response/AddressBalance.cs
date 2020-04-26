@@ -1,16 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace BlockchainWalletSharp.Models.Response
 {
     public class AddressBalance
     {
-        [JsonProperty("balance")]
+        [JsonPropertyName("balance")]
         public long Balance { get; set; }
 
-        [JsonProperty("address")]
+        [JsonPropertyName("address")]
         public string Address { get; set; }
 
-        [JsonProperty("total_received")]
+        [JsonPropertyName("total_received")]
         public long TotalReceived { get; set; }
     }
 }

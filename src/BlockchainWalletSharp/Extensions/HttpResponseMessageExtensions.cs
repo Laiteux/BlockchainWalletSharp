@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http;
+﻿using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BlockchainWalletSharp.Extensions
@@ -12,7 +12,7 @@ namespace BlockchainWalletSharp.Extensions
 
             var contentString = await content.ReadAsStringAsync().ConfigureAwait(false);
 
-            return JsonConvert.DeserializeObject<T>(contentString);
+            return JsonSerializer.Deserialize<T>(contentString);
         }
     }
 }

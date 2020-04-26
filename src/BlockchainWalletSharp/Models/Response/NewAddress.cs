@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace BlockchainWalletSharp.Models.Response
 {
     public class NewAddress
     {
-        [JsonProperty("address")]
+        [JsonPropertyName("address")]
         public string Address { get; set; }
 
-        [JsonProperty("label", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("label")]
         public string Label { get; set; }
     }
 }

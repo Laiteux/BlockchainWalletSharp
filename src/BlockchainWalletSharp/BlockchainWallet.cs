@@ -2,10 +2,9 @@
 using BlockchainWalletSharp.Helpers;
 using BlockchainWalletSharp.Models;
 using BlockchainWalletSharp.Models.Response;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BlockchainWalletSharp
@@ -76,9 +75,9 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var content = await responseMessage.DeserializeAsync<JObject>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeAsync<JsonElement>().ConfigureAwait(false);
 
-            return content.Value<long>("balance");
+            return content.GetProperty("balance").GetInt64();
         }
 
         /// <summary>
@@ -116,9 +115,9 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var content = await responseMessage.DeserializeAsync<JObject>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeAsync<JsonElement>().ConfigureAwait(false);
 
-            return content.Value<string>("archived");
+            return content.GetProperty("balance").GetString();
         }
 
         /// <summary>
@@ -136,9 +135,9 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var content = await responseMessage.DeserializeAsync<JObject>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeAsync<JsonElement>().ConfigureAwait(false);
 
-            return content.Value<string>("active");
+            return content.GetProperty("active").GetString();
         }
 
         /// <summary>
@@ -157,7 +156,7 @@ namespace BlockchainWalletSharp
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, "sendmany");
 
-            uri = uri.WithParameter("recipients", JsonConvert.SerializeObject(recipients));
+            uri = uri.WithParameter("recipients", JsonSerializer.Serialize(recipients));
 
             if(!string.IsNullOrWhiteSpace(from))
                 uri = uri.WithParameter("from", from);
@@ -272,9 +271,9 @@ namespace BlockchainWalletSharp
 
             var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var content = await responseMessage.DeserializeAsync<JObject>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeAsync<JsonElement>().ConfigureAwait(false);
 
-            return content.Value<string>("address");
+            return content.GetProperty("address").GetString();
         }
 
         /// <summary>
@@ -290,9 +289,9 @@ namespace BlockchainWalletSharp
 
             var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var content = await responseMessage.DeserializeAsync<JObject>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeAsync<JsonElement>().ConfigureAwait(false);
 
-            return content.Value<long>("balance");
+            return content.GetProperty("balance").GetInt64();
         }
 
         /// <summary>

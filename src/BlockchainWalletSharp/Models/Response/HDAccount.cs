@@ -1,34 +1,34 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace BlockchainWalletSharp.Models.Response
 {
     public class HDAccount
     {
-        [JsonProperty("archived")]
+        [JsonPropertyName("archived")]
         public bool Archived { get; set; }
 
-        [JsonProperty("balance")]
+        [JsonPropertyName("balance")]
         public long Balance { get; set; }
 
-        [JsonProperty("extendedPrivateKey")]
+        [JsonPropertyName("extendedPrivateKey")]
         public string ExtendedPrivateKey { get; set; }
 
-        [JsonProperty("extendedPublicKey")]
+        [JsonPropertyName("extendedPublicKey")]
         public string ExtendedPublicKey { get; set; }
 
-        [JsonProperty("index")]
+        [JsonPropertyName("index")]
         public long Index { get; set; }
 
-        [JsonProperty("label")]
+        [JsonPropertyName("label")]
         public string Label { get; set; }
 
-        [JsonProperty("lastUsedReceiveIndex")]
+        [JsonPropertyName("lastUsedReceiveIndex")]
         public long? LastUsedReceiveIndex { get; set; }
 
-        [JsonProperty("receiveAddress")]
+        [JsonPropertyName("receiveAddress")]
         public string ReceiveAddress { get; set; }
 
-        [JsonProperty("receiveIndex")]
+        [JsonPropertyName("receiveIndex")]
         public long ReceiveIndex { get; set; }
     }
 }
