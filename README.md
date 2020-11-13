@@ -1,10 +1,12 @@
-# BlockchainWalletSharp
-An unofficial C# library to interact with the Blockchain.info Wallet API V2.
+# BlockchainWalletSharp [![Latest release](https://img.shields.io/github/v/release/Laiteux/BlockchainWalletSharp?color=blue&style=flat-square)](https://github.com/Laiteux/BlockchainWalletSharp/releases) [![License](https://img.shields.io/github/license/Laiteux/BlockchainWalletSharp?color=blue&style=flat-square)](https://github.com/Laiteux/BlockchainWalletSharp/blob/master/LICENSE)
 
-## Documentation
-Example code for initializing a `BlockchainWallet` instance
+An unofficial asynchronous .NET Core library for interacting with the [Blockchain.info Wallet API V2](https://github.com/blockchain/service-my-wallet-v3).
+
+## How to use
+
+Example code for instancing a `BlockchainWallet`:
 ```cs
-var blockchainWallet = new BlockchainWallet(new HttpClient(), new BlockchainWalletConfiguration
+var blockchainWallet = new BlockchainWallet(new BlockchainWalletConfiguration()
 {
     Host = "http://localhost:3000",
     Identifier = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
@@ -12,47 +14,45 @@ var blockchainWallet = new BlockchainWallet(new HttpClient(), new BlockchainWall
 });
 ```
 
-Example code for sending a payment
+Example code for sending a payment:
 ```cs
-var recipients = new Dictionary<string, long>
+var recipients = new Dictionary<string, long>()
 {
     { "1LaiteuxHEH4GsMC9aVmnwgUEZyrG6BiTH", 1337 }
 };
 
-var payment = await blockchainWallet.PaymentAsync(recipients, feePerByte: 50);
+var payment = await blockchainWallet.SendPaymentAsync(recipients, feePerByte: 50);
 
 if (payment.Success)
 {
-    Console.WriteLine($"Payment successfully sent! TXID: {payment.TXID}");
+    Console.WriteLine($"Payment sent: {payment.TXID}");
 }
 else
 {
-    Console.WriteLine("An error occured while sending payment ...");
+    Console.WriteLine("An error occurred while sending the payment.");
 }
 ```
 
-## Contribution
-Your help is welcome, feel free to fork this repo and submit pull requests.
+## Contribute
 
-However, make sure to follow the current code base/style.
+Your help and ideas are welcome, feel free to fork this repo and submit a pull request.
 
-## Donation
-If you would like to support this project, please consider donating. Thank you!
-
-- Bitcoin: `1LaiteuxHEH4GsMC9aVmnwgUEZyrG6BiTH`
-
-- Ethereum: `0xC500a6777dB9948c257e7841a987027D5E5d0E5B`
+However, please make sure to follow the current code base/style.
 
 ## Contact
-Telegram: [@Laiteux](https://t.me/Laiteux)
 
-Instagram: [@eagle](https://instagr.am/eagle)
+Telegram: [@Laiteux](https://t.me/Laiteux)
 
 Email: matt@laiteux.dev
 
-## License
-This code is licensed under the MIT License.
+## Donate
 
-## To-Do
+If you would like to support this project, please consider donating.
+
+Donations are greatly appreciated and a motivation to keep improving.
+
+- Bitcoin: `1LaiteuxHEH4GsMC9aVmnwgUEZyrG6BiTH`
+
+## TODO
+- [ ] Switch to POST requests or then use [Flurl](https://github.com/tmenier/Flurl)
 - [ ] Handle Blockchain API errors & exceptions
-- [ ] Switch to POST requests

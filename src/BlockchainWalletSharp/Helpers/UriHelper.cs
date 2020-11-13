@@ -6,7 +6,7 @@ namespace BlockchainWalletSharp.Helpers
 {
     internal static class UriHelper
     {
-        public static UriBuilder BuildMerchantApi(BlockchainWalletConfiguration blockchainWalletConfiguration, string endpoint)
+        internal static UriBuilder BuildMerchantApi(BlockchainWalletConfiguration blockchainWalletConfiguration, string endpoint)
         {
             var uriBuilder = new UriBuilder($"{blockchainWalletConfiguration.Host}/merchant/{blockchainWalletConfiguration.Identifier}/{endpoint}");
 

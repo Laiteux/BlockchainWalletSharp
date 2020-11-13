@@ -6,7 +6,7 @@ namespace BlockchainWalletSharp.Extensions
 {
     internal static class UriBuilderExtensions
     {
-        public static UriBuilder WithParameter(this UriBuilder uriBuilder, string name, string value)
+        internal static UriBuilder WithParameter(this UriBuilder uriBuilder, string name, string value)
         {
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
 
@@ -17,7 +17,7 @@ namespace BlockchainWalletSharp.Extensions
             return uriBuilder;
         }
 
-        public static UriBuilder WithParameters(this UriBuilder uriBuilder, IEnumerable<KeyValuePair<string, string>> parameters)
+        internal static UriBuilder WithParameters(this UriBuilder uriBuilder, IDictionary<string, string> parameters)
         {
             foreach (var parameter in parameters)
             {

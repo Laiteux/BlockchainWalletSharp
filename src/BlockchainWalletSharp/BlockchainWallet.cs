@@ -11,26 +11,26 @@ namespace BlockchainWalletSharp
 {
     public class BlockchainWallet
     {
-        private readonly HttpClient _httpClient;
         private readonly BlockchainWalletConfiguration _blockchainWalletConfiguration;
+        private readonly HttpClient _httpClient;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="BlockchainWallet"/> instance
+        /// Initializes a new instance of the <see cref="BlockchainWallet"/> instance
         /// </summary>
-        /// <param name="httpClient">A <see cref="HttpClient"/> instance</param>
         /// <param name="blockchainWalletConfiguration">A <see cref="BlockchainWalletConfiguration"/> instance</param>
-        public BlockchainWallet(HttpClient httpClient, BlockchainWalletConfiguration blockchainWalletConfiguration)
+        /// <param name="httpClient">A <see cref="HttpClient"/> instance</param>
+        public BlockchainWallet(BlockchainWalletConfiguration blockchainWalletConfiguration, HttpClient httpClient = null)
         {
-            _httpClient = httpClient;
             _blockchainWalletConfiguration = blockchainWalletConfiguration;
+            _httpClient = httpClient ?? new HttpClient();
         }
 
         /// <summary>
-        ///     Generates a new address on your wallet
+        /// Generates a new address on your wallet
         /// </summary>
         /// <param name="label">Label to give to the address</param>
         /// <returns>A <see cref="NewAddress"/> instance</returns>
-        public async Task<NewAddress> NewAddressAsync(string label = null)
+        public async Task<NewAddress> GenerateAddressAsync(string label = null)
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, "new_address");
 
@@ -47,10 +47,10 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Lists your wallet addresses
+        /// Lists your wallet addresses
         /// </summary>
         /// <returns>A <see cref="AddressList"/> instance</returns>
-        public async Task<AddressList> AddressListAsync()
+        public async Task<AddressList> GetAddressesAsync()
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, "list");
 
@@ -64,10 +64,10 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Fetches your wallet balance
+        /// Fetches your wallet balance
         /// </summary>
         /// <returns>A <see cref="long"/> of wallet balance in satoshi</returns>
-        public async Task<long> WalletBalanceAsync()
+        public async Task<long> GetWalletBalanceAsync()
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, "balance");
 
@@ -81,11 +81,11 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Fetches a wallet address balance
+        /// Fetches a wallet address balance
         /// </summary>
         /// <param name="address">Bitcoin address</param>
         /// <returns>A <see cref="AddressBalance"/> instance</returns>
-        public async Task<AddressBalance> AddressBalanceAsync(string address)
+        public async Task<AddressBalance> GetAddressBalanceAsync(string address)
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, "address_balance");
 
@@ -101,7 +101,7 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Archives a wallet address
+        /// Archives a wallet address
         /// </summary>
         /// <param name="address">Bitcoin address</param>
         /// <returns>A <see cref="string"/> of the archived address</returns>
@@ -121,7 +121,7 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Unarchives a wallet address
+        /// Unarchives a wallet address
         /// </summary>
         /// <param name="address">Bitcoin address</param>
         /// <returns>A <see cref="string"/> of the unarchived address</returns>
@@ -141,18 +141,18 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Sends bitcoin from your wallet to multiple addresses
+        /// Sends bitcoin from your wallet to multiple addresses
         /// </summary>
         /// <remarks>
-        ///     It is recommended that transaction fees are specified using the fee_per_byte parameter, which will compute your final fee based on the size of the transaction. You can also set a static fee using the fee parameter, but doing so may result in a low fee-per-byte, leading to longer confirmation times.
-        ///     It is recommended to specify a custom fee, transactions using the default 10000 satoshi fee may not confirm
+        /// It is recommended that transaction fees are specified using the fee_per_byte parameter, which will compute your final fee based on the size of the transaction. You can also set a static fee using the fee parameter, but doing so may result in a low fee-per-byte, leading to longer confirmation times.
+        /// It is recommended to specify a custom fee, transactions using the default 10000 satoshi fee may not confirm
         /// </remarks>
         /// <param name="recipients">Bitcoin addresses as keys and the satoshi amounts as values</param>
         /// <param name="from">Bitcoin address or account index to send from</param>
         /// <param name="feePerByte">Transaction fee-per-byte in satoshi</param>
         /// <param name="fee">Transaction fee in satoshi</param>
         /// <returns>A <see cref="Payment"/> instance</returns>
-        public async Task<Payment> PaymentAsync(IEnumerable<KeyValuePair<string, long>> recipients, string from = null, long? feePerByte = null, long? fee = null)
+        public async Task<Payment> SendPaymentAsync(IDictionary<string, long> recipients, string from = null, long? feePerByte = null, long? fee = null)
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, "sendmany");
 
@@ -178,7 +178,7 @@ namespace BlockchainWalletSharp
 
         #region HD Account
         /// <summary>
-        ///     This will upgrade a wallet to an HD (Hierarchical Deterministic) Wallet, which allows the use of accounts. See BIP32 for more information on HD wallets and accounts.
+        /// This will upgrade a wallet to an HD (Hierarchical Deterministic) Wallet, which allows the use of accounts. See BIP32 for more information on HD wallets and accounts.
         /// </summary>
         public async Task EnableHDAsync()
         {
@@ -190,10 +190,10 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Creates a new HD account
+        /// Creates a new HD account
         /// </summary>
         /// <returns>A <see cref="NewHDAccount"/> instance</returns>
-        public async Task<NewHDAccount> NewHDAccountAsync()
+        public async Task<NewHDAccount> CreateHDAccountAsync()
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, "accounts/create");
 
@@ -207,10 +207,10 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Lists active HD accounts
+        /// Lists active HD accounts
         /// </summary>
         /// <returns>A <see cref="List{HDAccount}"/></returns>
-        public async Task<List<HDAccount>> ActiveHDAccountsListAsync()
+        public async Task<List<HDAccount>> GetActiveHDAccountsAsync()
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, "accounts");
 
@@ -224,10 +224,10 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Lists HD xPubs
+        /// Lists HD xPubs
         /// </summary>
         /// <returns>A <see cref="List{string}"/> of HD xPubs</returns>
-        public async Task<List<string>> HDxPubsListAsync()
+        public async Task<List<string>> GetHDxPubsAsync()
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, "accounts/xpubs");
 
@@ -241,7 +241,7 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Gets single HD account
+        /// Gets single HD account
         /// </summary>
         /// <param name="xPubOrIndex">Account xPub or index</param>
         /// <returns>A <see cref="HDAccount"/> instance</returns>
@@ -259,11 +259,11 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Gets HD account receiving address
+        /// Gets HD account receiving address
         /// </summary>
         /// <param name="xPubOrIndex">Account xPub or index</param>
         /// <returns>A <see cref="string"/> of the receiving address</returns>
-        public async Task<string> HDAccountReceivingAddress(string xPubOrIndex)
+        public async Task<string> GetHDAccountReceivingAddress(string xPubOrIndex)
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, $"accounts/{xPubOrIndex}/receiveAddress");
 
@@ -277,11 +277,11 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Gets HD account balance
+        /// Gets HD account balance
         /// </summary>
         /// <param name="xPubOrIndex">Account xPub or index</param>
         /// <returns>A <see cref="long"/> of HD account balance in satoshi</returns>
-        public async Task<long> HDAccountBalance(string xPubOrIndex)
+        public async Task<long> GetHDAccountBalance(string xPubOrIndex)
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, $"accounts/{xPubOrIndex}/balance");
 
@@ -295,7 +295,7 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Archives HD account
+        /// Archives HD account
         /// </summary>
         /// <param name="xPubOrIndex">Account xPub or index</param>
         /// <returns>A <see cref="HDAccount"/> instance of the archived HD account</returns>
@@ -313,7 +313,7 @@ namespace BlockchainWalletSharp
         }
 
         /// <summary>
-        ///     Unarchives HD account
+        /// Unarchives HD account
         /// </summary>
         /// <param name="xPubOrIndex">Account xPub or index</param>
         /// <returns>A <see cref="HDAccount"/> instance of the unarchived HD account</returns>
