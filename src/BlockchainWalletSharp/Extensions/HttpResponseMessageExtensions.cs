@@ -6,7 +6,7 @@ namespace BlockchainWalletSharp.Extensions
 {
     internal static class HttpResponseMessageExtensions
     {
-        internal static async Task<T> DeserializeAsync<T>(this HttpResponseMessage responseMessage)
+        internal static async Task<T> DeserializeJsonAsync<T>(this HttpResponseMessage responseMessage)
         {
             var contentString = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
 

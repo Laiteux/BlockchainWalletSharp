@@ -41,7 +41,7 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var newAddress = await responseMessage.DeserializeAsync<NewAddress>().ConfigureAwait(false);
+            var newAddress = await responseMessage.DeserializeJsonAsync<NewAddress>().ConfigureAwait(false);
 
             return newAddress;
         }
@@ -58,7 +58,7 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var addressList = await responseMessage.DeserializeAsync<AddressList>().ConfigureAwait(false);
+            var addressList = await responseMessage.DeserializeJsonAsync<AddressList>().ConfigureAwait(false);
 
             return addressList;
         }
@@ -75,7 +75,7 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var content = await responseMessage.DeserializeAsync<JsonElement>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeJsonAsync<JsonElement>().ConfigureAwait(false);
 
             return content.GetProperty("balance").GetInt64();
         }
@@ -95,7 +95,7 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var addressBalance = await responseMessage.DeserializeAsync<AddressBalance>().ConfigureAwait(false);
+            var addressBalance = await responseMessage.DeserializeJsonAsync<AddressBalance>().ConfigureAwait(false);
 
             return addressBalance;
         }
@@ -115,7 +115,7 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var content = await responseMessage.DeserializeAsync<JsonElement>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeJsonAsync<JsonElement>().ConfigureAwait(false);
 
             return content.GetProperty("balance").GetString();
         }
@@ -135,7 +135,7 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var content = await responseMessage.DeserializeAsync<JsonElement>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeJsonAsync<JsonElement>().ConfigureAwait(false);
 
             return content.GetProperty("active").GetString();
         }
@@ -171,7 +171,7 @@ namespace BlockchainWalletSharp
 
             using var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var payment = await responseMessage.DeserializeAsync<Payment>().ConfigureAwait(false);
+            var payment = await responseMessage.DeserializeJsonAsync<Payment>().ConfigureAwait(false);
 
             return payment;
         }
@@ -201,7 +201,7 @@ namespace BlockchainWalletSharp
 
             var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var newHDAccount = await responseMessage.DeserializeAsync<NewHDAccount>().ConfigureAwait(false);
+            var newHDAccount = await responseMessage.DeserializeJsonAsync<NewHDAccount>().ConfigureAwait(false);
 
             return newHDAccount;
         }
@@ -218,7 +218,7 @@ namespace BlockchainWalletSharp
 
             var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var hdAccounts = await responseMessage.DeserializeAsync<List<HDAccount>>().ConfigureAwait(false);
+            var hdAccounts = await responseMessage.DeserializeJsonAsync<List<HDAccount>>().ConfigureAwait(false);
 
             return hdAccounts;
         }
@@ -235,7 +235,7 @@ namespace BlockchainWalletSharp
 
             var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var hdXPubs = await responseMessage.DeserializeAsync<List<string>>().ConfigureAwait(false);
+            var hdXPubs = await responseMessage.DeserializeJsonAsync<List<string>>().ConfigureAwait(false);
 
             return hdXPubs;
         }
@@ -245,7 +245,7 @@ namespace BlockchainWalletSharp
         /// </summary>
         /// <param name="xPubOrIndex">Account xPub or index</param>
         /// <returns>A <see cref="HDAccount"/> instance</returns>
-        public async Task<HDAccount> GetHDAccount(string xPubOrIndex)
+        public async Task<HDAccount> GetHDAccountAsync(string xPubOrIndex)
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, $"accounts/{xPubOrIndex}");
 
@@ -253,7 +253,7 @@ namespace BlockchainWalletSharp
 
             var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var hdAccount = await responseMessage.DeserializeAsync<HDAccount>().ConfigureAwait(false);
+            var hdAccount = await responseMessage.DeserializeJsonAsync<HDAccount>().ConfigureAwait(false);
 
             return hdAccount;
         }
@@ -263,7 +263,7 @@ namespace BlockchainWalletSharp
         /// </summary>
         /// <param name="xPubOrIndex">Account xPub or index</param>
         /// <returns>A <see cref="string"/> of the receiving address</returns>
-        public async Task<string> GetHDAccountReceivingAddress(string xPubOrIndex)
+        public async Task<string> GetHDAccountReceivingAddressAsync(string xPubOrIndex)
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, $"accounts/{xPubOrIndex}/receiveAddress");
 
@@ -271,7 +271,7 @@ namespace BlockchainWalletSharp
 
             var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var content = await responseMessage.DeserializeAsync<JsonElement>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeJsonAsync<JsonElement>().ConfigureAwait(false);
 
             return content.GetProperty("address").GetString();
         }
@@ -281,7 +281,7 @@ namespace BlockchainWalletSharp
         /// </summary>
         /// <param name="xPubOrIndex">Account xPub or index</param>
         /// <returns>A <see cref="long"/> of HD account balance in satoshi</returns>
-        public async Task<long> GetHDAccountBalance(string xPubOrIndex)
+        public async Task<long> GetHDAccountBalanceAsync(string xPubOrIndex)
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, $"accounts/{xPubOrIndex}/balance");
 
@@ -289,7 +289,7 @@ namespace BlockchainWalletSharp
 
             var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var content = await responseMessage.DeserializeAsync<JsonElement>().ConfigureAwait(false);
+            var content = await responseMessage.DeserializeJsonAsync<JsonElement>().ConfigureAwait(false);
 
             return content.GetProperty("balance").GetInt64();
         }
@@ -299,7 +299,7 @@ namespace BlockchainWalletSharp
         /// </summary>
         /// <param name="xPubOrIndex">Account xPub or index</param>
         /// <returns>A <see cref="HDAccount"/> instance of the archived HD account</returns>
-        public async Task<HDAccount> ArchiveHDAccount(string xPubOrIndex)
+        public async Task<HDAccount> ArchiveHDAccountAsync(string xPubOrIndex)
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, $"accounts/{xPubOrIndex}/archive");
 
@@ -307,7 +307,7 @@ namespace BlockchainWalletSharp
 
             var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var hdAccount = await responseMessage.DeserializeAsync<HDAccount>().ConfigureAwait(false);
+            var hdAccount = await responseMessage.DeserializeJsonAsync<HDAccount>().ConfigureAwait(false);
 
             return hdAccount;
         }
@@ -317,7 +317,7 @@ namespace BlockchainWalletSharp
         /// </summary>
         /// <param name="xPubOrIndex">Account xPub or index</param>
         /// <returns>A <see cref="HDAccount"/> instance of the unarchived HD account</returns>
-        public async Task<HDAccount> UnarchiveHDAccount(string xPubOrIndex)
+        public async Task<HDAccount> UnarchiveHDAccountAsync(string xPubOrIndex)
         {
             var uri = UriHelper.BuildMerchantApi(_blockchainWalletConfiguration, $"accounts/{xPubOrIndex}/unarchive");
 
@@ -325,7 +325,7 @@ namespace BlockchainWalletSharp
 
             var responseMessage = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
 
-            var hdAccount = await responseMessage.DeserializeAsync<HDAccount>().ConfigureAwait(false);
+            var hdAccount = await responseMessage.DeserializeJsonAsync<HDAccount>().ConfigureAwait(false);
 
             return hdAccount;
         }
